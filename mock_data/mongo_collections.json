@@ -1,0 +1,26 @@
+{
+  "restapi_trainlogdata": [
+    {
+      "area": "Magneto",
+      "trainname": "magneto_dmaas_vmware_train",
+      "date": "20260421",
+      "logurl": "https://sv4-pluto.eng.cohesity.com/cohesityShare/watchmen_logs/watchmen-2026-4-21-9-12-40-udtewj",
+      "build": "hecp2026apr_release-20260421"
+    }
+  ],
+  "restapi_allbranch": [
+    {"name": "hecp2026apr_release"}
+  ],
+  "restapi_squaddetails": [
+    {
+      "os": "hecp",
+      "branch": "hecp2026apr_release",
+      "area": "Magneto",
+      "train_name": "magneto_dmaas_vmware_train",
+      "suite_group": "VMWare",
+      "suite_owner": "owner@example.com",
+      "suite_squad": "Magneto-VMWare",
+      "suite_name": "MagnetoDmaasVMwareSkipRDMDisks"
+    }
+  ]
+}

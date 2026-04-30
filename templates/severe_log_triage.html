@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+
+<div class="container-fluid" id="custom_body_bg_triage" style="margin-top: 10px">
+    <div id="severeTriage">
+        {% for data in severe_data %}
+        <table class="table table-striped table-bordered severe_table" id="submitSevereSolition{{ forloop.counter }}SevereTable">
+            <tbody>
+                <tr>
+                    <th style="width:15%">Error Message :</th>
+                    <td style="width:85%; max-width:85vw;overflow-y:auto;word-break: break-all;" colspan="6">{{data.error_msg}}</td>
+                </tr>
+                <tr>
+                    <th style="width:15%">Total Occurence:</th>
+                    <td style="width:5%">{{data.occurence}}</td>
+                    <th style="width:15%">Occurred in # of Suite:</th>
+                    <td style="width:5%">{{data.suite}}</td>
+                    <th style="width:20%">Occurred in # of Testcase:</th>
+                    <td style="width:5%">{{data.testcase}}</td>
+                    <td style="width:35%">
+                        {% if data.err_type == "new_error" %}
+                        <button type="button" class="btn btn-primary viewslog_btn" data-bs-toggle="modal" data-bs-target="#modelSevereLogSubmit{{ forloop.counter }}">Feed input</button>
+                        {% endif %}
+                        <button type="button" class="btn btn-primary viewslog_btn" data-bs-toggle="modal" data-bs-target="#modelSevereLogData{{ forloop.counter }}">View Error Details</button>
+                        {% if data.err_type == "buggy" %}
+                        {% buggy_severe_log data.signature as bugid %}
+                        <a class="btn btn-primary viewslog_btn" href="https://jira.cohesity.com/browse/{{ bugid.0 }}" target="_blank">{{ bugid.0 }} - {{ bugid.1 }} </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal fade" id="modelSevereLogSubmit{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="OptimalSolutionModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Mark your input about the severe log</h5>
+                    </div>
+                    <form name="submitSevereSolution"  id="submitSevereSolition{{ forloop.counter }}">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="col-form-label">Severe Log category*:</label>
+                                <input type="radio" name="severetype" value="buggy"> Bug
+                                <input type="radio" name="severetype" value="expected"> Expected
+                                <input type="radio" name="severetype" value="need_analysis"> Need Analysis
+                                <div class="err_cat_modal_error modal_submit_error_msg_hide">Please Select atlease one category</div>
+                            </div>
+                            <div class="mb-3 severe_log_bug display_none">
+                                <label for="bugid" class="col-form-label">Bug id*:</label>
+                                <input type="text" class="form-control" name="bugid" id="bugid">
+                                <div class="err_bug_modal_error modal_submit_error_msg_hide">Please Add the bug id</div>
+                                <div class="err_valid_bug_modal_error modal_submit_error_msg_hide">Enter the valid bug id(ie.ENG-123123, ENGOPS-123123, DEVXRQ-12312)</div>
+                            </div>
+                            <div class="mb-3 server_log_comment display_none">
+                                <label for="comments" class="col-form-label">Comments*:</label>
+                                <textarea class="form-control" id="comments"></textarea>
+                                <div class="err_cmt_modal_error modal_submit_error_msg_hide">Please Add the reason for when you chose error category as Expected/Need Analysis</div>
+                            </div>
+                            <input type="hidden" id="severesignature" name="severesignature" value="{{data.signature}}">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary submit_solution_inside_modal">Submit</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modelSevereLogData{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="modelSevereLogData" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    {% for suite,logs in data.err_log.items %}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{suite}} <a class="btn btn-primary" id="viewlogs_btn" target="_blank" href="{{ logs | screenshot_url }}">View Screenshots</a></h5>
+                    </div>
+                    {% for tc_name, log_url in logs.items %}
+                    <div>
+                        <div>
+                            <a style="margin:0px 5px" href="{{log_url}}" target="_blank">{{ forloop.counter }}. {{tc_name}} </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

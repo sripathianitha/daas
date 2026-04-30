@@ -1,0 +1,246 @@
+{% extends "v2/base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+<div class="container-fluid" id="custom_body_bg">
+    <div class="row" id="home_page_welcome_msg">
+        <div class="col-xl-12">
+            <div class="welcome_daas">WELCOME TO DAAS</div>
+            <div class="welcome_daas_key">Swift Log Analysis and Simplified Triage Efforts</div>
+        </div>
+    </div>
+    <div class="row padding_21_top" id="home_page_body_content">
+        <div class="col-xl-8 col-md-8">
+            <div class="input-group height_60">
+                <input class="form-control border-0" type="search" value="" id="searchsolutions" placeholder="Search Solutions...">
+                <span class="input-group-text bg-white border-0" id="SearchSolButton">
+                    <i class="fa-solid fa-search btn_background home_search_icon_prop"></i>
+                </span>
+            </div>
+            <div class="search_solution_result">
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-4">
+            <div class="analyze_section_title">
+                <div class="star_debug_train_style">START DEBUG TRAIN</div>
+            </div>
+            <div class="analyze_content_tile">
+                <div class="col-md-12 col-xl-12 padding_top_and_botton_13">
+                    <label for="branch_name_dropdown" class="star_debug_train_label">Branch <sup>*</sup></label>
+                    <select class="form-control" id="branch_name_dropdown">
+                        <option></option>
+                        {% for branch in branchs %}
+                        <option value="{{ branch }}">{{ branch }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-12 col-xl-12 padding_top_and_botton_13">
+                    <label for="train_name_dropdown" class="star_debug_train_label">Train Name <sup>*</sup></label>
+                    <select class="form-control" id="train_name_dropdown">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-md-12 col-xl-12 padding_top_and_botton_13">
+                    <label for="build_name_dropdown" class="star_debug_train_label">Build <sup>*</sup></label>
+                    <select class="form-control" id="build_name_dropdown">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-md-12 col-xl-12 padding_top_and_botton_13">
+                    <label for="category_dropdown" class="star_debug_train_label">Error/Suite <sup>*</sup></label>
+                    <select class="form-control" id="category_dropdown">
+                        <option></option>
+                        <option value="error">Error</option>
+                        <option value="suite">Suite</option>
+                    </select>
+                </div>
+                <div class="col-md-12 col-xl-12 padding_top_and_botton_13">
+                    <label for="squad_dropdown" class="star_debug_train_label">Squad</label>
+                    <select class="form-control" id="squad_dropdown">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-md-12 col-xl-12 padding_top_and_botton_13 suite_tag_parent display_none">
+                    <label for="suite_tag" class="star_debug_train_label">Suite Tag</label>
+                    <select class="form-control" id="suite_tag">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-md-12 col-xl-12 padding_bottom_30 severe_log_text">
+                    <input type="checkbox" name="withseverelog" id="withseverelog">
+                    <label class="form-check-label" for="withseverelog">With Severe Log Analysis(UI Trains only)</label>
+                </div>
+                <div class="col-md-12 col-xl-12 padding_top_and_botton_13">
+                    <label for="watchmen_log_url_input" class="star_debug_train_label">Watchmen log folder URL</label>
+                    <input class="form-control" type="url" id="watchmen_log_url_input" placeholder="https://sv4-pluto.../watchmen_logs/watchmen-.../">
+                </div>
+                <div class="col-md-12 col-xl-12">
+                    <button type="button" class="btn_background analyze_button_style" id="start_analyze_watchmen">ANALYZE FROM URL</button>
+                    <p id="analyze_watchmen_error_message" class="hidden">Paste a watchmen_logs directory URL (must list suites over HTTP).</p>
+                </div>
+                <div class="col-md-12 col-xl-12">
+                    <button type="button" class="btn_background analyze_button_style" id="start_analyze_train">ANALYZE</button>
+                    <p id="analyze_train_error_message">Please fill the *mandatory fields.</p>
+                </div>
+                {% csrf_token %}
+            </div>
+        </div>
+    </div>
+    <div id="train_analyzed_result">
+<!--        <div class="row">-->
+<!--            <div class="col-xl-12">-->
+<!--                <div class="summary_page_heading">ERROR LEVEL ANALYSIS</div>-->
+<!--                <div class="summary_page_traindata">helios_nexus_test2_train_base - hecp2024sep_release-20240920</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <nav>-->
+<!--            <div class="nav nav-tabs" id="nav-tab" role="tablist">-->
+<!--                <button class="nav-link active" id="nav-severelog-tab" data-bs-toggle="tab" data-bs-target="#nav-severelog" type="button" role="tab" aria-controls="nav-severelog" aria-selected="true">SEVERE LOG ANALYSIS</button>-->
+<!--                <button class="nav-link" id="nav-errorlog-tab" data-bs-toggle="tab" data-bs-target="#nav-errorlog" type="button" role="tab" aria-controls="nav-errorlog" aria-selected="false">ERROR LOG ANALYSIS</button>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--        <div class="tab-content" id="nav-tabContent">-->
+<!--            <div class="tab-pane fade show active" id="nav-severelog" role="tabpanel" aria-labelledby="nav-severelog-tab">-->
+<!--                <table id="severelog_table">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th>#</th>-->
+<!--                            <th>Log category</th>-->
+<!--                            <th>Counts in Train</th>-->
+<!--                            <th>Details</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>New Error</td>-->
+<!--                            <td>20</td>-->
+<!--                            <td>-->
+<!--                                <form action="/severe_error_triage/" method="post" target="_blank">-->
+<!--                                    <button type="submit" class="btn_background severe_log_submit_btn">View</button>-->
+<!--                                </form>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>New Error</td>-->
+<!--                            <td>20</td>-->
+<!--                            <td>20</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>New Error</td>-->
+<!--                            <td>20</td>-->
+<!--                            <td>20</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>New Error</td>-->
+<!--                            <td>20</td>-->
+<!--                            <td>20</td>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--            <div class="tab-pane fade" id="nav-errorlog" role="tabpanel" aria-labelledby="nav-errorlog-tab">-->
+<!--                <table id="errorlog_table">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th>#</th>-->
+<!--                            <th>Error Signature</th>-->
+<!--                            <th>Suite Impacted</th>-->
+<!--                            <th>Overall TC Impacted</th>-->
+<!--                            <th>Error Count</th>-->
+<!--                            <th>Triage</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>sdfasf</td>-->
+<!--                            <td>3</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>-->
+<!--                                <form action="/error_basis_triage/" method="post" target="_blank">-->
+<!--                                    <button type="submit" class="btn_background severe_log_submit_btn">Triage</button>-->
+<!--                                </form>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>sdfasf</td>-->
+<!--                            <td>3</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>we2</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>sdfasf</td>-->
+<!--                            <td>3</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>we2</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>sdfasf</td>-->
+<!--                            <td>3</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>we2</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>sdfasf</td>-->
+<!--                            <td>3</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>45</td>-->
+<!--                            <td>we2</td>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-12 col-xl-12">-->
+<!--                <table id="suite_level_table">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th>#</th>-->
+<!--                            <th>Suite Name</th>-->
+<!--                            <th>Squad</th>-->
+<!--                            <th>Total TC</th>-->
+<!--                            <th>Executed</th>-->
+<!--                            <th>Passed</th>-->
+<!--                            <th>Failed</th>-->
+<!--                            <th>Skipped</th>-->
+<!--                            <th>Pass %</th>-->
+<!--                            <th>Train Impact %</th>-->
+<!--                            <th>Suite Coverage Impact %</th>-->
+<!--                            <th>Triage</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>asdfasfd</td>-->
+<!--                            <td>sfasdfasdf</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                            <td>100</td>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+{% endblock %}

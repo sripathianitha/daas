@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+
+<div class="container-fluid" id="custom_body_bg_triage" style="margin-top: 10px">
+    <div class="row">
+        <div class="errormsg_cntr">
+            <div class="card">
+                <div class="card-header">
+                Error Signature
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ data.error_msg}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="optimalsln_cntr">
+            <div class="card">
+                <div class="card-header">
+                    Optimal Solution
+                </div>
+                <div class="card-body">
+                    {% for solution in data.optimal_solution %}
+                    <p class="card-text">{{ solution }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="triage-table" style="margin-top: 10px">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>S. No</th>
+                    <th>Suite</th>
+                    <th>Testcase</th>
+                    <th>Error Message</th>
+                    <th>View Solution</th>
+                    <th>Submit Solution</th>
+                    <th>Log link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in data.error_details %}
+                <tr>
+<!--              <td><input type="radio" name="select"></td>-->
+                    <td>{{ forloop.counter }}</td>
+                    <td><pre>{{ d.suitename }}</pre></td>
+                    <td><pre>{{ d.testcasename }}</pre></td>
+                    <td><pre>{{ d.rawerrormsg }}</pre></td>
+                    <td><button class="btn btn-primary" id="viewoptsol_btn" data-optimalsolution="{{ d.optimalsolution }}">View</button></td>
+                    <td><button class="btn btn-primary" id="submitoptsol_btn" data-optimalsolution="{{ d.optimalsolution }}">Click</button></td>
+                    <td><a class="btn btn-primary" id="viewlogs_btn" target="_blank" href="{{ d.logurl }}">ViewLog</a></td>
+                </tr>
+                <tr>
+<!--                    <form>-->
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+<!--                    </form>-->a
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="input-container" style="margin-top:10px">
+        <div class="row">
+            <div class="solu_cntr">
+                <div class="card">
+                    <div class="card-header">
+                    User Input
+                    </div>
+                    <div class="card-body">
+                        <label for="solution">Solution</label><br>
+                        <textarea id="solution" style="width:100%;"></textarea><br>
+                        <label for="category">Category</label><br>
+                        <select id="category" name="category-selection">
+                          <option value="infra">Infra</option>
+                          <option value="qa">QA</option>
+                        </select><br>
+                        <label for="mailidfield">Mail ID</label><br>
+                        <form>
+                            <input type="text" id="mailidfield" name="mailid">@cohesity.com<br><br><input type="button" class="btn btn-primary" id="submitbtn" value="Submit"></input>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.row {
+  display: flex;
+}
+.errormsg_cntr {
+  flex: 1;
+}
+.optimalsln_cntr {
+  flex: 1;
+}
+.solu_cntr {
+  flex: 1;
+}
+.category_cntr {
+  flex: 1;
+}
+.triage-table {
+  border-width: 1px;
+  border-style: solid;
+  border-collapse: collapse;
+  background-color: #FFFFFF;
+  color: #222222;
+}
+
+.table{
+  table-layout: fixed;
+  width: 100%;
+}
+
+.td{
+text-wrap: wrap;
+}
+
+.triage-table th{
+  border-width: 1px;
+  border-style: solid;
+  background-color: #dde7ed;
+  text-align: center;
+  text-wrap: wrap;
+}
+.triage-table td {
+  border-width: 1px;
+  border-style: solid;
+  text-wrap: wrap;
+}
+.triage-table thead {
+  background-color: #FFFFFF;
+  color: #222222;
+}
+.input-container
+{
+position: fixed;
+bottom: 0;
+width: 100%;
+}
+.submitbtn
+{
+margin-left: auto;
+margin-right: 0;
+}
+.textarea
+    {
+    row: 5;
+    cols: 60;
+    resize: none;
+    }
+#viewoptsol_btn, #submitbtn, #{
+    color: white;
+    background: #2C5F2D;
+    padding: 2px 10px 2px 10px;
+    border-radius: 37px;
+}
+{
+    color: white;
+    background: #2C5F2D;
+    padding: 2px 10px 2px 10px;
+    border-radius: 37px;
+}
+</style>
+
+
+{% endblock %}

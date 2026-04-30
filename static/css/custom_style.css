@@ -1,0 +1,328 @@
+body{
+   background-color:  #97BC62;
+}
+#custom_navbar{
+    background-color: #2C5F2D !important;
+    height: 56px;
+}
+
+#custom_navbar_logo_img {
+    width: 150px;
+    height: 20px;
+    border-radius: 8px;
+}
+/* box-shadow: 0px 17px 35px #171a1f, 0px 0px 2px #171a1f; */
+#home_page_input_row{
+    margin-top: 50px;
+}
+.select2-container .select2-selection--single .select2-selection__rendered{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.select2-container .select2-selection--single {
+    height: 48px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    top:13px !important;
+}
+
+#home_page_analyze_btn{
+    color: white;
+    background: #2C5F2D;
+    padding: 10px 20px 10px 20px;
+    border-radius: 37px;
+    margin-left: 65px;
+    margin-top: 10px;
+}
+
+#train_analyzed_result, #severelog_analyzed_result {
+    margin-top:15px;
+}
+
+.loader {
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #2C5F2D !important;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -60px;
+  margin-left: -60px;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#daas_body{
+    font-family: Serif;
+}
+#indextable_head,#indextable_body,#severe_head,#severe_body{
+    text-align: center;
+    line-height: 15px;
+    overflow: hidden;
+}
+#indextable_head tr:nth-child(3) th{
+    position: sticky;
+    top:0;
+}
+#train_result_table_analyze_btn,#train_suite_result_analyze_btn{
+    color: white;
+    background: #2C5F2D;
+    padding: 2px 10px 2px 10px;
+    border-radius: 37px;
+}
+#viewlogs_btn{
+    color: white;
+    background: #2C5F2D;
+    padding: 2px 10px 2px 10px;
+    border-radius: 37px;
+}
+.custom_body_bg_triage{
+    margin-top: 10px;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background: #2C5F2D;
+}
+
+#homesnackbarError {
+  visibility: hidden;
+  min-width: 250px;
+  max-width: 75%;
+  background-color: #ffe3e0 !important;
+  color: #35453a;
+  text-align: center;
+  border-radius: 6px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 9%;
+  bottom: 30px;
+  font-weight: bold;
+}
+
+#homesnackbarWarning {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  max-width: 75%;
+  background-color: #ffe4c7 !important; /* Black background color */
+  color: #2d3b34; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 6px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 9%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+  font-weight: bold;
+}
+#homesnackbarSuccess {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  max-width: 75%;
+  background-color: #c3e8fa !important; /* Black background color */
+  color: #2d3b34; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 6px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 9%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+  font-weight: bold;
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#homesnackbarError.show, #homesnackbarWarning.show, #homesnackbarSuccess.show{
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 9.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 9.5s;
+  animation: fadein 0.5s, fadeout 0.5s 9.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder{
+    color: #000;
+}
+
+#error_message{
+    visibility: hidden;
+    text-align: center;
+    color: red;
+}
+
+#error_message.show{
+    visibility: visible;
+}
+
+#error_message.hidden{
+    visibility: hidden;
+}
+
+#home_table_name{
+    background-color: grey;
+    color: white;
+}
+
+.menu_open_btn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #2C5F2D !important;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.menu_open_btn:hover {
+  background-color: #97BC62;
+}
+
+.dasssidepanel  {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #184605;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 10px;
+  margin-top: 56px;
+  height: 100%;
+}
+
+.dasssidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.dasssidepanel a:hover {
+  color: #f1f1f1;
+}
+
+.dasssidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+
+.select2-container--default {
+    width: 95% !important;
+    margin: 5px 5px;
+    left: 0px !important;
+}
+
+#home_page_welcome_msg{
+    text-align: center;
+    color: white;
+    margin: 15px 35px;
+}
+
+#custom_navbar_logo_img{
+    cursor: pointer;
+}
+
+#submitoptsol_btn, #viewoptsol_btn, #submitbtn, .viewslog_btn{
+    color: white;
+    background: #2C5F2D;
+    padding: 2px 10px 2px 10px;
+    border-radius: 37px;
+}
+
+#errorTriage {
+    margin: 10px 0px;
+    --bs-accordion-active-bg: white;
+}
+#errorTriage .table{
+    margin-bottom:0px;
+}
+#errorTriage td:nth-child(1) {
+    width:4%;
+}
+#errorTriage td:nth-child(2) {
+    width:82%;
+    max-width:82vw;
+    overflow-y: auto;
+}
+#errorTriageDeatils tr td:first-child{
+    width:11%;
+}
+.error_details_sno{
+    width: 5%;
+}
+#GetStartButton, #SearchSolButton{
+    color: white;
+    background: #2C5F2D;
+}
+
+.actual_submit_solution, .submit_solution_inside_modal{
+    color: white;
+    background: #2C5F2D;
+}
+
+.os_invalid_optimal_solution, .os_invalid_email, .os_invalid_error_category, .os_invalid_server_failure, .modal_submit_error_msg_hide {
+    font-size: smaller;
+    color: red;
+    display: none;
+}
+
+.os_submit_error_msg_show,.modal_submit_error_msg_show{
+   display: block;
+}
+
+#home_page_button_area {
+    margin: 25px 0px;
+}
+#home_page_button_area button {
+    margin: 0px 10px;
+}
+#GetStartButtonDiv {
+    margin-top:35px;
+}
+#daas_dashboar_metrics, #daas_dashboar_metrics2{
+    margin-top:16px;
+}
+.home_page_optimal_solution_section{
+    background-color: white;
+}
+.error_message_print{
+    max-height: 100px;
+    overflow-y: auto;
+    max-width: 82vw;
+}
+#withseverelog{
+    margin-left: 5px;
+    margin-top: 10px;
+}
+.display_none {
+    display: none;
+}

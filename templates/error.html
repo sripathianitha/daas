@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+    <section class="p-0 bg-img cover-background">
+        <div class="container-fluid d-flex flex-column">
+            <div class="row align-items-center justify-content-center min-vh-100">
+                <div class="col-md-9 col-lg-6 my-5">
+                    <div class="text-center error-page">
+                        {% if folder %}
+                        <h1 class="mb-0 text-secondary">404</h1>
+                        <h2 class="mb-4 text-black">{{ folder }} folder not found in the pluto server!</h2>
+                        {% endif %}
+                        {% if nofailure %}
+                        <h1 class="mb-0 text-secondary">No failures,All GOOD :)</h1>
+                        <h2 class="mb-4 text-black"></h2>
+                        {% endif %}
+                        <div>
+                            <a href="/" class="btn btn-primary btn-lg me-sm-2 mb-2 mb-sm-0">Return Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

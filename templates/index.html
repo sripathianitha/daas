@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+
+<div id="dasssidebar" class="dasssidepanel">
+    <select class="form-control" id="branch_name_dropdown">
+        <option></option>
+        {% for branch in branchs %}
+        <option value="{{ branch }}">{{ branch }}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <select class="form-control" id="train_name_dropdown">
+        <option></option>
+    </select>
+    <br/>
+    <select class="form-control" id="build_name_dropdown">
+        <option></option>
+    </select>
+    <br/>
+    <select class="form-control" id="category_dropdown">
+        <option></option>
+        <option value="error">Error</option>
+        <option value="suite">Suite</option>
+    </select>
+    <select class="form-control" id="squad_dropdown">
+        <option></option>
+    </select>
+    <br/>
+    <input type="checkbox" name="withseverelog" id="withseverelog"> <span style="color:white;font-size:15px;">Severe Log Analysis(UI Trains only)</span>
+    {% csrf_token %}
+    <button type="button" class="btn btn-info" id="home_page_analyze_btn">Analyze</button>
+    <p id="error_message">Please fill the *mandatory fields.</p>
+</div>
+<div class="container-fluid" id="custom_body_bg">
+    <div class="row" id="home_page_welcome_msg">
+        <div class="col-xl-12">
+            <h3>Welcome to DAAS</h3>
+            <h5>Swift Log Analysis and Simplified Triage Efforts</h5>
+        </div>
+    </div>
+    <div class="row" id="daas_dashboar_metrics">
+        <div class="col-xl-2 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Branches</p>
+                                <h5 class="font-weight-bolder mb-0">{{ branchs_count }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Trains</p>
+                                <h5 class="font-weight-bolder mb-0">{{ trains_count }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Suites</p>
+                                <h5 class="font-weight-bolder mb-0">{{ suites_count }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Squads</p>
+                                <h5 class="font-weight-bolder mb-0">{{ squads_count }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Error Signature</p>
+                                <h5 class="font-weight-bolder mb-0">{{ error_sig_count }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-sm-6">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Solutions</p>
+                                <h5 class="font-weight-bolder mb-0">{{ optimal_solution_count }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="GetStartButtonDiv">
+        <div class="col-xl-2 col-sm-2"></div>
+        <div class="col-xl-8 col-sm-8 d-flex justify-content-center">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="SearchInput"  placeholder="Paste your error message here">
+            </div>
+        </div>
+        <div class="col-xl-2 col-sm-2"></div>
+        <div class="col-xl-12 col-sm-12 text-center" id="home_page_button_area">
+            <button type="button" class="btn btn-primary" id="SearchSolButton">Search Solution</button>
+            <button type="button" class="btn btn-primary" id="GetStartButton">Start Debug Train</button>
+        </div>
+    </div>
+    <div class="row" id="home_page_optimal_solution_result_div">
+        <div class="col-xl-2 col-sm-2"></div>
+        <div class="col-xl-8 home_page_optimal_solution_section" id="SearchEngineSol">
+        </div>
+        <div class="col-xl-2 col-sm-2"></div>
+    </div>
+    <div id="severelog_analyzed_result"></div>
+    <div id="train_analyzed_result"></div>
+</div>
+{% endblock %}

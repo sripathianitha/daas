@@ -1,0 +1,117 @@
+{% extends "v2/base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+
+<div class="container-fluid" id="custom_body_bg_triage" style="margin-top: 10px">
+    <div id="severeTriage">
+        <table class="table" id="submitSevereSolition">
+            <thead>
+                <tr>
+                    <th colspan="6">{{severe_data.0.err_type | cleanup}}</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Total Occurrence</th>
+                    <th>Impacted Suite's</th>
+                    <th>Impacted TC's</th>
+                    <th>Error Message</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in severe_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{data.occurence}}</td>
+                    <td>{{data.suite}}</td>
+                    <td>{{data.testcase}}</td>
+                    <td>{{data.error_msg}}</td>
+                    <td>
+                        <button data-bs-toggle="modal" data-bs-target="#modelSevereLogData{{ forloop.counter }}"><i class="fa-solid fa-circle-info"></i></button>
+                        {% if data.err_type == "buggy" %}
+                        {% buggy_severe_log data.signature as bugid %}
+                        <a class="btn_background severe_log_submit_btn" style="text-decoration:none;" href="https://jira.cohesity.com/browse/{{ bugid.0 }}" target="_blank">{{ bugid.0 }} - {{ bugid.1 }} </a>
+                        {% endif %}
+                        {% if data.err_type == "new_error" %}
+                        <button data-bs-toggle="modal" data-bs-target="#modelSevereLogSubmit{{ forloop.counter }}"><i class="fa-solid fa-paper-plane"></i></button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td><b>Sum</b></td>
+                    <td>{{total_occurence}}</td>
+                    <td>{{total_suites}}</td>
+                    <td>{{total_testcases}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        {% for data in severe_data %}
+        <div class="modal fade modelSevereLogSubmit" id="modelSevereLogSubmit{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="OptimalSolutionModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Mark your input about the severe log</h5>
+                    </div>
+                    <form name="submitSevereSolution"  id="submitSevereSolition{{ forloop.counter }}">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="col-form-label">Severe Log category*:</label>
+                                <input type="radio" name="severetype" value="buggy"> Bug
+                                <input type="radio" name="severetype" value="expected"> Expected
+                                <input type="radio" name="severetype" value="need_analysis"> Need Analysis
+                                <div class="err_cat_modal_error modal_submit_error_msg_hide ">Please Select atlease one category</div>
+                            </div>
+                            <div class="mb-3 severe_log_bug display_none">
+                                <label for="bugid" class="col-form-label">Bug id*:</label>
+                                <input type="text" class="form-control" name="bugid" id="bugid">
+                                <div class="err_bug_modal_error modal_submit_error_msg_hide">Please Add the bug id</div>
+                                <div class="err_valid_bug_modal_error modal_submit_error_msg_hide">Enter the valid bug id(ie.ENG-123123, ENGOPS-123123, DEVXRQ-12312)</div>
+                            </div>
+                            <div class="mb-3 server_log_comment display_none">
+                                <label for="comments" class="col-form-label">Comments*:</label>
+                                <textarea class="form-control" id="comments"></textarea>
+                                <div class="err_cmt_modal_error modal_submit_error_msg_hide">Please Add the reason for when you chose error category as Expected/Need Analysis</div>
+                            </div>
+                            <input type="hidden" id="severesignature" name="severesignature" value="{{data.signature}}">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary popup_close_btn" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn_background severe_log_submit_btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade modelSevereLogData" id="modelSevereLogData{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="modelSevereLogData" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    {% for suite,logs in data.err_log.items %}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{suite}}</h5>
+                        <a class="btn_background severe_log_submit_btn screenshotbtn" target="_blank" href="{{ logs | screenshot_url }}">Screenshots</a>
+                    </div>
+                    <div class="modal-body">
+                    {% for tc_name, log_url in logs.items %}
+                    <div>
+                        <div>
+                            <a style="margin:0px 5px" href="{{log_url}}" target="_blank">{{ forloop.counter }}. {{tc_name}} </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary popup_close_btn" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

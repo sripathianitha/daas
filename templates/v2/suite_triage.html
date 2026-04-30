@@ -1,0 +1,119 @@
+{% extends "v2/base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+
+<div class="container-fluid" id="custom_body_bg_triage" style="margin-top: 10px">
+    <div id="errorTriage">
+        <table class="table" id="errorTriageDeatils">
+            <tr>
+                <td colspan="6">
+                    <div class="row">
+                        {% if 'ui' in errordata.0.trainname %}
+                        <div class="col-md-4">Suite Name : {{ suitename }}</div>
+                        <div class="col-md-3">SquadName: {{ errordata.0.squadname }}</div>
+                        <div class="col-md-2">
+                            <a class="btn_background severe_log_submit_btn log_screenshot" target="_blank" href="{{ errordata.0.logurl | screenshot_url_from_log}}">Screenshots</a>
+                        </div>
+                        <div class="col-md-3"><span class="passpercentage_code" style="{{errordata.0.suiteperc | colorcode}}">Pass % : {{ errordata.0.suiteperc }}</span></div>
+                        {% else %}
+                        <div class="col-md-4">Suite Name : {{ suitename }}</div>
+                        <div class="col-md-4">SquadName: {{ errordata.0.squadname }}</div>
+                        <div class="col-md-4"><span class="passpercentage_code" style="{{errordata.0.suiteperc | colorcode}}">Pass % : {{ errordata.0.suiteperc }}</span></div>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><b>#</b></td>
+                <td><b>Testcase Name</b></td>
+                <td><b>Error Message</b></td>
+                <td><b>View Logs</b></td>
+                <td><b>Optimal Solution</b></td>
+                <td><b>Submit Solution</b></td>
+            </tr>
+            {% for d in errordata %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ d.testcasename }}</td>
+                <td>{{ d.rawerrormsg }}</td>
+                <td><a target="_blank" href="{{ d.logurl }}"><i class="fa-solid fa-circle-info"></i></a></td>
+                <td>
+                    {% if d.optimalsolution %}
+                    <a data-bs-toggle="modal" data-bs-target="#modelOptimalSolution{{suitename}}{{ forloop.counter }}"><i class="fa-solid fa-magnifying-glass"></i></a>
+                    {% else %}
+                    Nil
+                    {% endif %}
+                </td>
+                <td>
+                    {% if d.cleanerrsig != "UnknownErrSig" %}
+                    <a data-bs-toggle="modal" data-bs-target="#modelSubmitSolution{{suitename}}{{ forloop.counter }}"><i class="fa-solid fa-paper-plane"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+            <div class="modal fade modelOptimalSolution" id="modelOptimalSolution{{suitename}}{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="OptimalSolutionModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Optimal Solution</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ d.optimalsolution }}
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn_background severe_log_submit_btn" data-bs-target="#modelSubmitSolution{{suitename}}{{ forloop.counter }}" data-bs-toggle="modal" data-bs-dismiss="modal">Submit Solution</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade modelSubmitSolution" id="modelSubmitSolution{{suitename}}{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="modelSubmitSolution" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Submit Your Optimal Solution</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form name="submitOptimalSolition" id="submitOptimalSolition{{ forloop.counter }}">
+                            <input type="hidden" id="cleaned_error_msg" value="{{ d.cleanederrormsg }}">
+                            <input type="hidden" id="cleaned_error_sig" value="{{ d.cleanerrsig }}">
+                            <div class="modal-body">
+                                <div class="os_invalid_server_failure os_submit_error_msg_hide">Some data's from server side is missing. Please contact dev team.</div>
+                                <div class="mb-3">
+                                    <label for="optimalsolution" class="col-form-label">Optimal Solution*:</label>
+                                    <textarea class="form-control" id="optimalsolution" disabled></textarea>
+                                    <div class="os_invalid_optimal_solution os_submit_error_msg_hide">Please Enter the OptimalSolution</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="emailaddress" class="col-form-label">Email Address*:</label>
+                                    <input type="text" class="form-control" name="emailaddress" id="emailaddress" disabled>
+                                    <div class="os_invalid_email os_submit_error_msg_hide">Please Enter the valid email addr.(only cohesity.com domain name acceptable)</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="errorcategory" class="col-form-label">Error Category*:</label>
+                                    <select name="errorcategory" id="errorcategory" class="form-select" disabled>
+                                        <option value=""></option>
+                                        <option value="QA">QA/PROD</option>
+                                        <option value="INFRA">INFRA</option>
+                                    </select>
+                                    <div class="os_invalid_error_category os_submit_error_msg_hide">Please Enter the OptimalSolution</div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="checkbox" id="commonsolution" name="commonsolution">
+                                    <label for="commonsolution" class="col-form-label">Is this solution applicable all the error message shown under "{{data.error_msg}}" signature?</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary popup_close_btn" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn_background severe_log_submit_btn" disabled>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

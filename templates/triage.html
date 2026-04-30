@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% load template_tags %}
+{% block content %}
+{% if nojunit %}
+  {% for suitename in nojunit %}
+  <div class="alert alert-warning" role="alert">
+    The {{ suitename }} does not have the result. Seems like its having infra issue.
+  </div>
+  {% endfor %}
+{% endif %}
+<div class="accordion accordion_custom" id="accordionExample" style="margin:20px">
+  {% for key,error in failures.items %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <div style="font-size:small" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#triagecollapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+        Suite Name: {{ key | suitename }} | Testcase Name: {{ key | testcasename }}
+      </div>
+    </h2>
+    <div id="triagecollapse{{ forloop.counter }}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body" style="font-size:small">
+        {{ error }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

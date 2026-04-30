@@ -1,0 +1,520 @@
+body {
+    font-family:"Open Sans";
+}
+
+.container-fluid{
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+#daas_body {
+    background: #F2F6F9;
+}
+
+#custom_navbar {
+    height: 80px;
+    background-color: #ffffff;
+    padding: 0px !important;
+}
+
+.welcome_daas, .summary_page_heading{
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 40.85px;
+    color: #215273;
+    padding-top: 22px;
+}
+
+.welcome_daas_key, .summary_page_traindata{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21.79px;
+    color: #818181;
+}
+
+.padding_21_top{
+    padding-top: 21px;
+}
+
+.height_60 {
+    height: 60px;
+}
+
+.btn_background {
+    background-color: #55C595;
+    color: #ffffff;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+    border-color: #ffffff !important;
+}
+
+.home_search_icon_prop {
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.analyze_section_title {
+    background: #ffffff;
+    padding: 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.star_debug_train_style {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21.79px;
+    text-align: left;
+    color: #215273;
+}
+
+.star_debug_train_label, .severe_log_text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19.07px;
+    text-align: left;
+    color: #373737;
+}
+
+.select2-container--default .select2-selection--single{
+    border: 1px solid #DBDBDB;
+    border-radius: 5px;
+    height: 45px;
+}
+
+.analyze_content_tile {
+    padding: 4px 20px 20px 20px;
+    background: #ffffff;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top:10px;
+    right: 10px;
+}
+
+.star_debug_train_label sup{
+    color: red;
+}
+
+.padding_top_and_botton_13 {
+    padding: 13px 0px;
+}
+
+.padding_bottom_30 {
+    padding-bottom: 30px;
+}
+
+.analyze_button_style{
+    width: 100%;
+    border: none;
+    height: 45px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered{
+    padding-top: 8px;
+}
+
+#analyze_train_error_message{
+    visibility: hidden;
+    text-align: center;
+    color: red;
+}
+
+#analyze_train_error_message.show,.suite_tag_parent.show{
+    visibility: visible;
+}
+
+#analyze_train_error_message.hidden,.suite_tag_parent.hidden{
+    visibility: hidden;
+}
+
+.search_solution_result {
+    margin: 25px 0px 0px 0px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+.search_solution_result.show,.severe_log_text.show{
+    visibility:visible;
+}
+
+.search_solution_result.hidden,.severe_log_text.hidden{
+    visibility: hidden;
+}
+
+#homesnackbarError {
+  visibility: hidden;
+  min-width: 250px;
+  max-width: 75%;
+  background-color: #ffebee !important;
+  color: #263238;
+  border-radius: 6px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 30px;
+  bottom: 30px;
+  font-weight: bold;
+  border: 1px solid #F44336;
+}
+#homesnackbarError i{
+    color: #F44336;
+}
+
+.padding_0_px {
+    padding: 0px !important;
+}
+
+#homesnackbarWarning {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  max-width: 75%;
+  background-color: #FFF3E0 !important; /* Black background color */
+  color: #263238; /* White text color */
+  border-radius: 6px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 30px; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+  font-weight: bold;
+  border: 1px solid #FF9800;
+}
+
+#homesnackbarWarning i {
+    color: #FF9800;
+}
+
+#homesnackbarSuccess {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  max-width: 75%;
+  background-color: #E8F5E9 !important; /* Black background color */
+  color: #263238; /* White text color */
+  border-radius: 6px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 30px; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+  font-weight: bold;
+  border: 1px solid #43A047;
+}
+
+#homesnackbarSuccess i {
+    color: #43A047;
+}
+
+
+#homesnackbarError.show, #homesnackbarWarning.show, #homesnackbarSuccess.show{
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 9.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 9.5s;
+  animation: fadein 0.5s, fadeout 0.5s 9.5s;
+}
+
+#train_analyzed_result,.triage_top_section{
+    margin:25px 0px;
+}
+
+#nav-severelog-tab, #nav-errorlog-tab{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.07px;
+    text-align: left;
+    color: #000000;
+}
+
+#severelog_table,#errorlog_table,#suite_level_table{
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #dedede;
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+}
+
+#severelog_table thead tr th:first-child, #severelog_table tbody tr td:first-child,
+#errorlog_table thead tr th:first-child, #errorlog_table tbody tr td:first-child,
+#suite_level_table thead tr th:first-child, #suite_level_table tbody tr td:first-child{
+    padding-left: 20px;
+}
+
+#severelog_table thead tr th:nth-child(3), #severelog_table tbody tr td:nth-child(3),
+#errorlog_table thead tr th:nth-child(3), #errorlog_table tbody tr td:nth-child(3),
+#errorlog_table thead tr th:nth-child(4), #errorlog_table tbody tr td:nth-child(4),
+#errorlog_table thead tr th:nth-child(5), #errorlog_table tbody tr td:nth-child(5),
+#suite_level_table thead tr th:nth-child(4), #suite_level_table tbody tr td:nth-child(4),
+#suite_level_table thead tr th:nth-child(5), #suite_level_table tbody tr td:nth-child(5),
+#suite_level_table thead tr th:nth-child(6), #suite_level_table tbody tr td:nth-child(6),
+#suite_level_table thead tr th:nth-child(7), #suite_level_table tbody tr td:nth-child(7),
+#suite_level_table thead tr th:nth-child(8), #suite_level_table tbody tr td:nth-child(8),
+#suite_level_table thead tr th:nth-child(9), #suite_level_table tbody tr td:nth-child(9),
+#suite_level_table thead tr th:nth-child(10), #suite_level_table tbody tr td:nth-child(10),
+#suite_level_table thead tr th:nth-child(11), #suite_level_table tbody tr td:nth-child(11){
+    text-align: center;
+}
+#severelog_table thead tr th:nth-child(4), #severelog_table tbody tr td:nth-child(4),
+#errorlog_table thead tr th:nth-child(6), #errorlog_table tbody tr td:nth-child(6),
+#suite_level_table thead tr th:nth-child(12), #suite_level_table tbody tr td:nth-child(12){
+    text-align: right;
+    padding-right: 20px;
+}
+#severelog_table thead tr th,#severelog_table tbody tr td,
+#errorlog_table thead tr th,#errorlog_table tbody tr td,
+#suite_level_table thead tr th,#suite_level_table tbody tr td{
+    padding-top:10px;
+    padding-bottom:10px;
+    border-bottom: 1px solid #f2f4f7;
+}
+#severelog_table thead tr th,#errorlog_table thead tr th,#suite_level_table thead tr th,
+#submitSevereSolition thead tr:nth-child(2) th{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.07px;
+    text-align: left;
+}
+#severelog_table tbody tr td,#errorlog_table tbody tr td, #suite_level_table tbody tr td,
+#submitSevereSolition tbody tr td{
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16.34px;
+    text-align: left;
+}
+
+.severe_log_submit_btn {
+    border: 0px;
+    padding: 5px 20px;
+}
+
+.summary_page_traindata{
+    margin-bottom: 20px;
+}
+
+.err_signature_title{
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 29.96px;
+    text-align: left;
+    color: #215273;
+    margin-bottom:20px
+}
+
+.err_signature_content{
+    display: table;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 25px;
+    height:220px;
+    overflow: hidden;
+    width:100%
+}
+.err_signature_content .inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.triage_page_top_icon{
+    height: 170px;
+    width: 265px;
+}
+
+#errorTriage{
+    margin-left:10px;
+    margin-right:10px;
+}
+
+#errorTriageDeatils tr:first-child td,#submitSevereSolition thead tr:first-child th{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.07px;
+    text-align: left;
+    color: #fff;
+    background-color: #55C595;
+    margin-left:0px;
+    margin-right:0px;
+}
+
+#errorTriageDeatils tr:not(:first-child) td{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16.34px;
+    text-align: left;
+}
+
+#errorTriageDeatils tr:first-child td div:nth-child(2){
+    text-align: center;
+}
+#errorTriageDeatils tr:first-child td div:nth-child(3),#errorTriageDeatils tr:first-child td div:nth-child(4){
+    text-align: right;
+}
+#errorTriageDeatils tr:not(:first-child) td:nth-child(2){
+    overflow-y:auto;
+    word-break: break-all;
+}
+#errorTriageDeatils tr:not(:first-child) td:nth-child(3){
+    overflow-y:auto;
+    word-break: break-all;
+}
+
+
+#submitSevereSolition tbody tr td:nth-child(5){
+    width:75%;
+    max-width:85vw;
+    overflow-y:auto;
+    word-break: break-all;
+}
+#submitSevereSolition tbody tr td:nth-child(6){
+    width: 7%;
+}
+#submitSevereSolition tbody tr td:nth-child(6) button{
+    border: none;
+    background: white;
+    font-size: 15px;
+}
+
+
+#errorTriageDeatils tr:nth-child(even) td div{
+    display: inline-block;
+}
+
+#errorTriageDeatils tr:nth-child(odd) td{
+    border-bottom: 1px solid #f2f4f7;
+}
+
+.passpercentage_code{
+    padding:3px;
+    border-radius:4px;
+}
+
+.error_testcase_actions{
+    float: right;
+}
+
+.error_testcase_name {
+    width : 94%;
+}
+.error_testcase_actions i{
+    font-size: 16px;
+    cursor: pointer;
+    padding-left: 15px;
+}
+#errorTriageDeatils>:not(caption)>*>* {
+    border-bottom-width:0px;
+}
+
+.error_testcase_actions a {
+    color: #3E4177;
+}
+
+
+.loader {
+  --d:22px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  color: #25b09b;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -2px;
+  margin-top: -2px;
+  box-shadow:
+    calc(1*var(--d))      calc(0*var(--d))     0 0,
+    calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
+    calc(0*var(--d))      calc(1*var(--d))     0 2px,
+    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
+    calc(-1*var(--d))     calc(0*var(--d))     0 4px,
+    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
+    calc(0*var(--d))      calc(-1*var(--d))    0 6px;
+  animation: l27 1s infinite steps(8);
+}
+@keyframes l27 {
+  100% {transform: rotate(1turn)}
+}
+
+.os_invalid_optimal_solution, .os_invalid_email, .os_invalid_error_category, .os_invalid_server_failure, .modal_submit_error_msg_hide {
+    font-size: smaller;
+    color: red;
+    display: none;
+}
+
+.os_submit_error_msg_show, .modal_submit_error_msg_show{
+   display: block !important;
+}
+
+.popup_close_btn {
+    background-color: #fff;
+    color: #215273;
+    border: none;
+}
+
+.btn-close{
+    background-color: #FF0000;
+    color: #fff;
+    border-radius: 50%;
+}
+.modelSubmitSolution .modal-header .modal-title,.modelOptimalSolution .modal-header .modal-title,
+.modelSevereLogSubmit .modal-header .modal-title,.modelSevereLogData .modal-header .modal-title{
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 19.07px !important;
+    text-align: left !important;
+    color: #215273 !important;
+}
+
+.modelSubmitSolution .modal-body label,.modelSubmitSolution .modal-body textarea,.modelSubmitSolution .modal-body input,
+.modelSubmitSolution .modal-body option, .modelSubmitSolution .modal-body select,.modelOptimalSolution .modal-body,
+.modelSevereLogSubmit .modal-body label,.modelSevereLogSubmit .modal-body textarea,.modelSevereLogSubmit .modal-body input,
+.modelSevereLogSubmit .modal-body option,.modelSevereLogSubmit .modal-body, .modelSevereLogData .modal-body{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16.34px;
+    text-align: left;
+    color: #215273 !important;
+}
+
+.screenshotbtn {
+    position: absolute;
+    right: 0px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+.display_none {
+    display: none;
+}
+#custom_navbar_logo_img {
+    cursor: pointer;
+}
+#submitSevereSolition thead{
+    position: sticky;
+    top: 0px;
+}
+
+#errorTriageDeatils tr:nth-child(2) td:nth-child(1) { width: 2vw;}
+#errorTriageDeatils tr:nth-child(2) td:nth-child(2) { width: 20vw;}
+#errorTriageDeatils tr:nth-child(2) td:nth-child(3) { width: 50vw;}
+#errorTriageDeatils tr:nth-child(2) td:nth-child(4) { width: 5vw;}
+#errorTriageDeatils tr:nth-child(2) td:nth-child(5) { width: 5vw;}
+#errorTriageDeatils tr:nth-child(2) td:nth-child(6) { width: 5vw;}
+
+#errorTriageDeatils tr:not(:first-child) td:nth-child(4),#errorTriageDeatils tr:not(:first-child) td:nth-child(5),
+#errorTriageDeatils tr:not(:first-child) td:nth-child(6) {
+    text-align:center;
+}
+#errorTriageDeatils tr:not(:first-child) td:nth-child(4) a {
+    color: inherit;
+}
+.log_screenshot {
+    text-decoration: NONE;
+    background-color: #058850;
+    border-radius: 5px;
+}
